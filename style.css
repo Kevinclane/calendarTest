@@ -1,0 +1,42 @@
+.calendar-container {
+  width: 100%;
+  border: 2px solid black;
+  min-height: 90vh;
+}
+
+.calendar-day-column {
+  width: 12.5%;
+  border: 1px solid black;
+}
+
+.calendar-column {
+  width: 12.5%;
+  border: 1px solid black;
+}
+
+.calendar-row {
+  display: flex;
+}
+
+.table-header-cell {
+  background-color: darkcyan;
+  height: 1rem;
+  padding: 0.5rem;
+  border: 1px solid black;
+}
+
+.cell-0 {
+  background-color: aliceblue;
+  padding: 0.5rem;
+}
+
+.cell-1 {
+  background-color: rgb(202, 202, 202);
+  padding: 0.5rem;
+}
+
+.super-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
