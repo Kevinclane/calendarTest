@@ -1,0 +1,23 @@
+{
+  "name": "calendartest",
+  "version": "1.0.0",
+  "description": "Early testing for Calendar NPM Package",
+  "main": "app.js",
+  "dependencies": {
+    "luxon": "^2.4.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kevinclane/calendarTest.git"
+  },
+  "author": "Kevin Lane",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kevinclane/calendarTest/issues"
+  },
+  "homepage": "https://github.com/Kevinclane/calendarTest#readme"
+}

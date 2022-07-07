@@ -1,42 +1,35 @@
 .calendar-container {
-  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(8, 12.5%);
+  grid-auto-rows: auto;
   border: 2px solid black;
-  min-height: 90vh;
-}
-
-.calendar-day-column {
-  width: 12.5%;
-  border: 1px solid black;
-}
-
-.calendar-column {
-  width: 12.5%;
-  border: 1px solid black;
-}
-
-.calendar-row {
-  display: flex;
 }
 
 .table-header-cell {
   background-color: darkcyan;
-  height: 1rem;
+  min-height: 1rem;
   padding: 0.5rem;
   border: 1px solid black;
 }
 
 .cell-0 {
-  background-color: aliceblue;
+  background-color: rgb(255, 255, 255);
   padding: 0.5rem;
+  border: 1px solid black;
 }
 
 .cell-1 {
-  background-color: rgb(202, 202, 202);
+  background-color: rgb(213, 213, 213);
   padding: 0.5rem;
+  border: 1px solid black;
 }
 
 .super-center {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.flex-column {
+  flex-direction: column;
 }
