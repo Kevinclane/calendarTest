@@ -30,7 +30,7 @@ export default class Cell {
     }
 
     SetCallback() {
-        document.getElementById(this.CalendarEvent.Id + this.RandomNumber).addEventListener("click", this.CalendarEvent.Callback)
+        document.getElementById(this.CalendarEvent.Id + this.RandomNumber).addEventListener("click", this.CalendarEvent.Callback);
     }
 
 }
