@@ -3,173 +3,9 @@ import * as luxon from "./node_modules/luxon/build/es6/luxon.js";
 let DateTime = luxon.DateTime;
 
 //internal
-import CalendarEvent from "./models/CalendarEvent.js";
-import Cell from "./models/Cell.js";
 import demoApp from "./demo.js";
-import {
-  millFromSeconds,
-  millFromMinutes,
-  millFromHours,
-  millFromDays,
-  millFromWeeks,
-} from "./calculators/MillisecondCalculator.js";
+import Calendar from "./models/Calendar.js";
 
-const HOURS = [12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
-let DAYSOFTHEWEEK = [];
-
-let allCells = [];
-
-function setWeek(primaryEventDate) {
-  let dayMilliseconds = millFromDays(1);
-  let startOfWeek = DateTime.fromISO(primaryEventDate)
-    .startOf("week")
-    .minus(dayMilliseconds);
-  let i = 0;
-  while (i < 7) {
-    let nextDayMilliseconds = dayMilliseconds * (i + 1);
-    let day = startOfWeek.plus(nextDayMilliseconds);
-    DAYSOFTHEWEEK.push(day);
-    i++;
-  }
-}
-
-function getCellTime(time, day) {
-  let hour;
-  let minute;
-  let amPm;
-
-  let split = time.split(" ");
-  amPm = split[1];
-
-  split = split[0].split(":");
-  hour = split[0];
-  minute = split[1];
-
-  if (hour == 12) {
-    if (amPm == "am") {
-      hour = "00";
-    }
-  } else if (amPm == "pm") {
-    hour = (parseInt(hour) + 12).toString();
-  }
-
-  let cellTime = new DateTime(day);
-  cellTime = cellTime.plus({
-    hour,
-    minute,
-  });
-
-  return cellTime;
-}
-
-function generateHourAxisNames(hourDividend) {
-  let amHours = [];
-  let pmHours = [];
-  let i = 0;
-
-  while (i < HOURS.length) {
-    let x = 0;
-    while (x < hourDividend) {
-      let minutes = (60 / hourDividend) * x;
-      if (minutes == "0") {
-        minutes += "0";
-      }
-
-      amHours.push(HOURS[i] + ":" + minutes + " am");
-      pmHours.push(HOURS[i] + ":" + minutes + " pm");
-      x++;
-    }
-    i++;
-  }
-
-  return amHours.concat(pmHours);
-}
-
-function generateTableHeader() {
-  let template = `
-      <div class="table-header-cell super-center"></div>
-    `;
-
-  let i = 0;
-  while (i < DAYSOFTHEWEEK.length) {
-    template += `
-      <div class="table-header-cell super-center flex-column">
-        <div>
-          ${DAYSOFTHEWEEK[i].toFormat("MM/dd")}
-        </div>
-        <div>
-          ${DAYSOFTHEWEEK[i].weekdayShort}
-        </div>
-      </div>
-    `;
-    i++;
-  }
-
-  return template;
-}
-
-function generateCell(cellTime, events, evenOdd) {
-  //need to go through all events and create an interval
-  let cellEvents = events.filter((e) => e.Interval.contains(cellTime));
-
-  let template = ``;
-
-  let i = 0;
-  while (i < cellEvents.length) {
-    // template += cellEvents[i].BuildCell(evenOdd);
-    // debugger
-    let cell = new Cell(cellEvents[i]);
-    template += cell.BuildCell(evenOdd);
-    allCells.push(cell);
-    i++;
-  }
-
-  if (i == 0) {
-    template = `
-    <div class="cell-${evenOdd}">
-    </div>
-    `;
-  }
-
-  return template;
-}
-
-function generateRow(time, index, events) {
-  let evenOdd = index % 2;
-
-  //y-axis label cell
-  let template = `
-    <div class="cell-${evenOdd} super-center">
-      ${time}
-    </div>
-  `;
-
-  //probably break this into a "generateCell" function
-  let i = 0;
-  while (i < DAYSOFTHEWEEK.length) {
-    let cellTime = getCellTime(time, DAYSOFTHEWEEK[i]);
-
-    template += generateCell(cellTime, events, evenOdd);
-
-    i++;
-  }
-
-  return template;
-}
-
-function generateRows(events) {
-  let yAxisLabels = generateHourAxisNames(2);
-
-  let template = ``;
-
-  let i = 0;
-  while (i < yAxisLabels.length) {
-    template += generateRow(yAxisLabels[i], i, events);
-    i++;
-  }
-
-  return template;
-}
 
 function validateInputs(varArgs) {
   let i = 0;
@@ -191,42 +27,14 @@ function consoleErrors(varArgs) {
   }
 }
 
-//the loaded week will be loaded based on the primaryEventDate
-function loadCaldendar(id, events, primaryEventDate) {
-  setWeek(primaryEventDate);
-
-  let parameterErrors = validateInputs(
-    { name: "id", field: id },
-    { name: "primaryEventDate", field: primaryEventDate }
-  );
-
-  if (parameterErrors.length > 0) {
-    consoleErrors(parameterErrors);
-  } else {
-    let tableHeader = generateTableHeader();
-    let rows = generateRows(events);
-
-    let template = `
-      <div class="calendar-container">
-        ${tableHeader}
-        ${rows}
-      </div>
-    `;
-
-    let location = document.getElementById(id);
-    location.innerHTML = template;
-
-    let i = 0;
-    while(i < allCells.length) {
-      allCells[i].SetCallback();
-      i++;
-    }
-
-  }
-}
 
 //demo data setup
 let demoData = demoApp();
 let events = demoData.events;
 
-loadCaldendar("calendar", events, demoData.events[0].StartTime);
+
+let calendarTest = new Calendar(demoData.events[0].StartTime, events, 2);
+
+console.log(calendarTest);
+
+calendarTest.buildWeekCalendarToId("calendar");

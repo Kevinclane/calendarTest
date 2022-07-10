@@ -1,7 +1,7 @@
 import * as luxon from "../node_modules/luxon/build/es6/luxon.js";
 
 export default class CalendarEvent {
-  Id;
+  Id = Date.now();
   Name;
   Description;
   Color;
@@ -10,8 +10,7 @@ export default class CalendarEvent {
   Interval;
   Callback;
 
-  constructor(id, name, description, color, startTime, endTime, callback) {
-    this.Id = id ? id : Date.now();
+  constructor(name, description, color, startTime, endTime, callback) {
     this.Name = name;
     this.Description = description;
     this.Color = color;

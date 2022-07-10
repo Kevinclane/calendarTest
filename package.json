@@ -4,7 +4,8 @@
   "description": "Early testing for Calendar NPM Package",
   "main": "app.js",
   "dependencies": {
-    "luxon": "^2.4.0"
+    "luxon": "^2.4.0",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {},
   "scripts": {
