@@ -14,16 +14,24 @@
 
 .cell-0 {
   background-color: rgb(255, 255, 255);
-  padding: 0.5rem;
   border: 1px solid black;
   user-select: none;
+
 }
 
 .cell-1 {
   background-color: rgb(213, 213, 213);
-  padding: 0.5rem;
   border: 1px solid black;
   user-select: none;
+}
+
+.p-1 {
+  padding: 1rem;
+}
+
+.py-1 {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }
 
 .super-center {
@@ -34,6 +42,10 @@
 
 .flex-column {
   flex-direction: column;
+}
+
+.d-flex {
+  display: flex;
 }
 
 .button {

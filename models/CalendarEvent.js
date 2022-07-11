@@ -1,7 +1,9 @@
 import * as luxon from "../node_modules/luxon/build/es6/luxon.js";
+import uuidv4 from "../../node_modules/uuid/dist/esm-browser/v4.js"
+
 
 export default class CalendarEvent {
-  Id = Date.now();
+  Id = uuidv4();
   Name;
   Description;
   Color;

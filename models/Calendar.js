@@ -10,6 +10,7 @@ export default class Calendar {
     PrimaryDate; //Luxon DateTime
     TitleCells;
     BodyCellRows;
+    BodyCellColumns;
     Events;
     DaysOfTheWeek;
     YAxisLabelNames;
@@ -20,11 +21,12 @@ export default class Calendar {
 
         this.DaysOfTheWeek = CalendarBuilder.setDaysOfWeek(primaryDate);
 
-        this.TitleCells = CalendarBuilder.generateTitleCells(this.DaysOfTheWeek);
+        this.TitleCells = CalendarBuilder.generateTitleCells(this.DaysOfTheWeek, events);
 
         this.YAxisLabelNames = CalendarBuilder.generateYAxisLabelNames(hourDividend);
 
-        this.BodyCellRows = CalendarBuilder.generateBodyCells(events, this.YAxisLabelNames, this.DaysOfTheWeek);
+        this.BodyCellRows = CalendarBuilder.generateBodyCellRows(events, this.YAxisLabelNames, this.TitleCells);
+        this.BodyCellColumns = CalendarBuilder.generateBodyCellColumns(events, this.YAxisLabelNames, this.DaysOfTheWeek);
     };
 
     getMonthStartDate() {

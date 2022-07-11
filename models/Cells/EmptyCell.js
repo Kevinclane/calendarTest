@@ -10,7 +10,8 @@ export default class EmptyCell {
 
   BuildCell(evenOdd) {
     return `
-    <div id="${this.Id}" class="cell-${evenOdd} button">
+    <div id="${this.Id}" class="cell-${evenOdd} p-1 button">
+     
     </div>
     `
   };

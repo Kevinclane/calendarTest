@@ -4,10 +4,12 @@ export default class TitleCell {
   Id;
   DateTime;
   Color;
+  Events;
 
-  constructor(dateTime, color) {
+  constructor(dateTime, events, color) {
     this.Id = Math.floor(Math.random() * 100000);
     this.DateTime = dateTime;
+    this.Events = events;
     this.Color = color ? color : DataConstants.DEFAULT_TITLE_COLOR;
   };
 

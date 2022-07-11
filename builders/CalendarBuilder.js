@@ -34,7 +34,7 @@ export function setDaysOfWeek(primaryDate) {
   return days;
 };
 
-export function generateTitleCells(daysOfTheWeek) {
+export function generateTitleCells(daysOfTheWeek, events) {
 
   let cells = [];
   //First cell is always blank
@@ -42,7 +42,8 @@ export function generateTitleCells(daysOfTheWeek) {
 
   let i = 0;
   while (i < daysOfTheWeek.length) {
-    cells.push(new TitleCell(daysOfTheWeek[i], null));
+    let daysEvents = events.filter(e => daysOfTheWeek[i].hasSame(e.StartTime, "day"));
+    cells.push(new TitleCell(daysOfTheWeek[i], daysEvents, null));
     i++;
   };
 
@@ -79,17 +80,18 @@ function getCellTime(time, day) {
   return cellTime;
 }
 
-function generateRowOfCells(events, time, daysOfTheWeek) {
+function generateRowOfCells(events, time, titleCells) {
   let labelCell = new LabelCell(time);
   let rowCells = [];
 
-  let i = 0;
-  while (i < daysOfTheWeek.length) {
-    let cellTime = getCellTime(time, daysOfTheWeek[i]);
+  //start at 1 because the first title cell is blank
+  let i = 1;
+  while (i < titleCells.length) {
+    let cellTime = getCellTime(time, titleCells[i].DateTime);
     let cellEvents = events.filter((e) => e.Interval.contains(cellTime));
 
     if (cellEvents.length > 0) {
-      let cell = new BodyCell(cellEvents, cellTime);
+      let cell = new BodyCell(cellEvents, cellTime, titleCells[i].Events);
       rowCells.push(cell);
     } else {
       //!TODO This null value will be a callback function
@@ -102,7 +104,7 @@ function generateRowOfCells(events, time, daysOfTheWeek) {
   return rowCells;
 }
 
-export function generateBodyCells(events, yAxisLabels, daysOfTheWeek) {
+export function generateBodyCellRows(events, yAxisLabels, daysOfTheWeek) {
   let cells = [];
 
   let i = 0;
@@ -113,6 +115,11 @@ export function generateBodyCells(events, yAxisLabels, daysOfTheWeek) {
   };
 
   return cells;
+};
+
+export function generateBodyCellColumns(events, yAxisLabels, daysOfTheWeek) {
+  //get all events for a particular day
+  //
 }
 
 export function generateYAxisLabelNames(hourDividend) {

@@ -35,6 +35,4 @@ let events = demoData.events;
 
 let calendarTest = new Calendar(demoData.events[0].StartTime, events, 2);
 
-console.log(calendarTest);
-
 calendarTest.buildWeekCalendarToId("calendar");

@@ -5,35 +5,54 @@ export default class BodyCell {
     Id;
     CalendarEvents;
     DateTime;
+    EventWidth;
+    DayEvents;
 
-    constructor(calendarEvents, cellTime) {
+    constructor(calendarEvents, cellTime, dayEvents = []) {
         this.Id = uuidv4();
         this.CalendarEvents = calendarEvents;
         this.DateTime = cellTime;
+        this.DayEvents = dayEvents;
+        this.EventWidth = 100 / dayEvents.length
     };
 
 
-    //!TODO Need to remove the hard coded 0 index 
+
     BuildCell = (evenOdd) => {
-        let template = `
-          <div 
-          id="${this.CalendarEvents[0].Id + this.Id}"
-           class="cell-${evenOdd} button" style="background-color:${this.CalendarEvents[0].Color
-            }">
-            ${this.CalendarEvents[0].Description}
-            <div>
-            Start Time: ${this.CalendarEvents[0].StartTime.toFormat("hh:mm")}
-            </div>
-            <div>
-            End Time: ${this.CalendarEvents[0].EndTime.toFormat("hh:mm")}
-            </div>
-          </div>
-        `;
+        let template = `<div class="cell-${evenOdd} d-flex">`;
+
+        let i = 0;
+        while(i < this.DayEvents.length) {
+
+            let currentEvent = this.CalendarEvents.find(ce => ce == this.DayEvents[i]);
+            if(!currentEvent) {
+                template += `
+                    <div style="width:${this.EventWidth}%">
+
+                    </div>
+                `;
+            } else {
+                template += `
+                <div 
+                    id="${currentEvent.Id + this.Id}"
+                    class="button super-center py-1" style="background-color:${currentEvent.Color};width:${this.EventWidth}%">
+                </div>
+                `;
+            }
+            i++;
+        };
+
+        template += `</div>`;
+        // debugger
         return template;
     };
 
     SetCallback() {
-        document.getElementById(this.CalendarEvents[0].Id + this.Id).addEventListener("click", this.CalendarEvents[0].Callback);
+        let i = 0;
+        while(i < this.CalendarEvents.length) {
+            document.getElementById(this.CalendarEvents[i].Id + this.Id).addEventListener("click", this.CalendarEvents[i].Callback);
+            i++;
+        }
     };
 
 }

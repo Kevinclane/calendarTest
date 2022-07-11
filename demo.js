@@ -17,6 +17,14 @@ function generateEvents() {
       () => callback("Red")
     ),
     new CalendarEvent(
+      "One.Five",
+      "Dummy Data",
+      "rgb(255 255 0 / 50%)",
+      DateTime.fromISO("2022-07-04T07:30"),
+      DateTime.fromISO("2022-07-04T15:30"),
+      () => callback("Yellow")
+    ),
+    new CalendarEvent(
       "Two",
       "Dummy Data",
       "rgb(0 255 0 / 50%)",
@@ -31,6 +39,30 @@ function generateEvents() {
       DateTime.fromISO("2022-07-07T10:00"),
       DateTime.fromISO("2022-07-07T19:00"),
       () => callback("Blue")
+    ),
+    new CalendarEvent(
+      "Four",
+      "Dummy Data",
+      "rgb(0 255 255 / 50%)",
+      DateTime.fromISO("2022-07-07T11:00"),
+      DateTime.fromISO("2022-07-07T19:00"),
+      () => callback("Cyan")
+    ),
+    new CalendarEvent(
+      "Five",
+      "Dummy Data",
+      "rgb(255 0 255 / 50%)",
+      DateTime.fromISO("2022-07-07T10:00"),
+      DateTime.fromISO("2022-07-07T22:00"),
+      () => callback("Magenta")
+    ),
+    new CalendarEvent(
+      "Six",
+      "Dummy Data",
+      "rgb(10 120 120 / 50%)",
+      DateTime.fromISO("2022-07-07T00:00"),
+      DateTime.fromISO("2022-07-07T05:00"),
+      () => callback("Teal")
     ),
   ];
   return testEvents;
